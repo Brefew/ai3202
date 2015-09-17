@@ -1,4 +1,5 @@
 In order to run Assignment 3 on the command line:
+
 python astar_search.py worldname heuristic
 
 Heuristic can be either 1 or 2
