@@ -1,6 +1,6 @@
 #Ian Moore
 #ai3202 Assignment 3
-#With assistance from Dylan
+#With assistance from Dylan's code
 
 import argparse
 
