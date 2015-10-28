@@ -345,18 +345,49 @@ def main():
 	
 	#Here is where we find which probability that needs to be returned
 	if args.j is not None:
-		eventList = subArgs(list(args.j[0]), bayesNet)
-		(desc, ret) = bayesNet.jointProb(eventList)
-		params = args.j[0]
-		print desc
-		if re.search("[PSCDX]", params) is not None:
-			pass
-		elif re.search('~', params) is not None:
-			pass
-		else:
-			pass
-		
-		print ret
+	    evList = data.net.subArgs(list(args.j[0]), bnet)
+	    (desc, ret) = bnet.jointProbability(evList)
+	    params = args.j[0]
+	    print desc
+	    if re.search("[PSCXD]", params) is not None:
+	        if re.search("~", params) is not None:
+	            if params[0] is '~':
+	                for key,value in ret.iteritems():
+	                    if key[0] is False and key[1] is True:
+	                        print key, value
+	                    elif key[0] is False and key[1] is False:
+	                        print key, value
+	            else:
+	                for key, value in ret.iteritems():
+	                    if key[0] is True and key[1] is False: 
+	                        print key, value
+	                    elif key[0] is False and key[1] is False:
+	                        print key, value
+	        elif re.search("[pscxd]", params) is not None:
+	            if re.search("[pscxd]", params[0]) is not None:
+	                for key, value in ret.iteritems():
+	                    if key[0] is True and key[1] is True:
+	                        print key, value
+	                    elif key[0] is True and key[1] is False:
+	                        print key, value
+	            else:
+	                for key, value in ret.iteritems():
+	                    if key[0] is True and key[1] is True:
+	                        print key, value
+	                    elif key[0] is False and key[1] is True:
+	                        print key, value
+	        else:
+	            print ret
+	    elif re.search('~', params) is not None:
+	        if params[0] is '~':
+	            if params[2] is '~':
+	                print ret[False, False]
+	            else:
+	                print ret[False, True]
+	        else:
+	            print ret[True, False]
+	    else:
+	        print ret[True, True]
 		
 		
 	elif args.g is not None:
@@ -408,10 +439,10 @@ def main():
 					if key[0] is True and key[1] is True:
 						print key, ret[key]
 	else:
-		eventList = subArgs(list(args.m[0]), bayesNet)
-		(desc, ret) = bayesNet.marginalProb(eventList)
+		evList = subArgs(list(args.m[0]), bayesNet)
+		(desc, ret) = bayesNet.marginalProb(evList)
 		params = args.m[0]
-		event = eventList[0]
+		event = evList[0]
 		
 		print 'True = Low for Pollution'
 		
