@@ -336,8 +336,8 @@ def main():
 	#finding which probability we're returning
 	
 	if args.j is not None:
-	    evList = data.net.subArgs(list(args.j[0]), bnet)
-	    (desc, ret) = bnet.jointProbability(evList)
+	    lst = subArgs(list(args.j[0]), bayesNet)
+	    (desc, ret) = bayesNet.jointProb(lst)
 	    params = args.j[0]
 	    print desc
 	    if re.search("[PSCXD]", params) is not None:
